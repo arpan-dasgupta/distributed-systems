@@ -7,7 +7,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long int ll;
-int numpr;
 #define send_data_tag 2001
 #define return_data_tag 2002
 
@@ -89,10 +88,27 @@ void combine_reduce(vector<int> &color, int l, int r, int mid, vector<vector<int
 void color_reduce_parallel(vector<int> &color, int l, int r, vector<vector<int>> &adj, int depth, int rank, int del)
 {
     int mid = (l + r) / 2;
-    int next_rank = pow(rank + 2, depth);
-    if (next_rank < numpr)
+    int next_rank = rank + pow(2, depth);
+    depth++;
+    if (next_rank < nump)
     {
-        color_reduce_parallel(color, l, mid, adj, depth + 1, rank, del);
+        send_vec(color, next_rank);
+        int st = mid + 1;
+        MPI_Send(&st, 1, MPI_INT, next_rank, send_data_tag, MPI_COMM_WORLD);
+        MPI_Send(&r, 1, MPI_INT, next_rank, send_data_tag, MPI_COMM_WORLD);
+        MPI_Send(&depth, 1, MPI_INT, next_rank, send_data_tag, MPI_COMM_WORLD);
+
+        // cout << "Sent\n";
+        // exit(0);
+
+        color_reduce_parallel(color, l, mid, adj, depth, rank, del);
+
+        vector<int> new_color;
+        receive_vec(new_color, next_rank);
+        for (int i = mid + 1; i <= r; i++)
+        {
+            color[i] = new_color[i];
+        }
 
         combine_reduce(color, l, r, mid, adj, del);
     }
@@ -121,7 +137,7 @@ int main(int argc, char **argv)
     double tbeg = MPI_Wtime();
     // vector<pair<int,int>> trans
 
-    int nump = numprocs;
+    nump = numprocs;
 
     int n, del = 0;
     vector<int> arr;
@@ -163,15 +179,55 @@ int main(int argc, char **argv)
             color[i] = i;
         // color_reduce(color, 0, m - 1, adj, del);
         // cout << "del = " << del << '\n';
-        // for (int i = 0; i < m; i++)
-        // {
-        //     cout << color[i] << " ";
-        // }
-        // cout << '\n';
         color_reduce_parallel(color, 0, m - 1, adj, 0, 0, del);
+        for (int i = 0; i < m; i++)
+        {
+            cout << color[i] << " ";
+        }
+        cout << '\n';
     }
     else
     {
+        int n, m;
+        cin >> n >> m;
+        vector<pair<int, int>> edges;
+        for (int i = 0; i < m; i++)
+        {
+            int u, v;
+            cin >> u >> v;
+            edges.push_back({u, v});
+        }
+        vector<vector<int>> adj(m);
+        for (int i = 0; i < m; i++)
+        {
+            for (int j = i + 1; j < m; j++)
+            {
+                if ((edges[i].first == edges[j].first || edges[i].second == edges[j].first || edges[i].first == edges[j].second || edges[i].second == edges[j].second))
+                {
+                    adj[i].push_back(j);
+                    adj[j].push_back(i);
+                }
+            }
+        }
+        vector<int> color;
+        int rr = 1;
+        while (rr <= rank)
+        {
+            rr *= 2;
+        }
+        rr /= 2;
+        int sender = rank - rr;
+
+        receive_vec(color, sender);
+        int l, r, depth;
+        MPI_Status stat;
+        MPI_Recv(&l, 1, MPI_INT, sender, send_data_tag, MPI_COMM_WORLD, &stat);
+        MPI_Recv(&r, 1, MPI_INT, sender, send_data_tag, MPI_COMM_WORLD, &stat);
+        MPI_Recv(&depth, 1, MPI_INT, sender, send_data_tag, MPI_COMM_WORLD, &stat);
+
+        color_reduce_parallel(color, l, r, adj, depth, rank, del);
+
+        send_vec(color, sender);
     }
 
     // MPI_Bcast(&n, 1, MPI_INT, 0, MPI_COMM_WORLD);
@@ -182,7 +238,7 @@ int main(int argc, char **argv)
     MPI_Reduce(&elapsedTime, &maxTime, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
     if (rank == 0)
     {
-        printf("Total time (s): %f\n", maxTime);
+        // printf("Total time (s): %f\n", maxTime);
     }
 
     /* shut down MPI */
