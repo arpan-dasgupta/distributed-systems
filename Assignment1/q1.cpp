@@ -10,9 +10,6 @@ typedef long long int ll;
 
 int main(int argc, char **argv)
 {
-    freopen(argv[1], "r", stdin);
-    freopen(argv[2], "a", stdout);
-
     int rank, numprocs;
 
     /* start up MPI */
@@ -28,6 +25,7 @@ int main(int argc, char **argv)
     int n;
     if (rank == 0)
     {
+        ifstream cin(argv[1]);
         cin >> n;
     }
     MPI_Bcast(&n, 1, MPI_INT, 0, MPI_COMM_WORLD);
@@ -41,7 +39,10 @@ int main(int argc, char **argv)
     double ans = 0;
     MPI_Reduce(&val, &ans, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
     if (rank == 0)
-        cout << fixed << setprecision(6) << ans << " " << n << '\n';
+    {
+        ofstream cout(argv[2]);
+        cout << fixed << setprecision(6) << ans << '\n';
+    }
 
     MPI_Barrier(MPI_COMM_WORLD);
     double elapsedTime = MPI_Wtime() - tbeg;

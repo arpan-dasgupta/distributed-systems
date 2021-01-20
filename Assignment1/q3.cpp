@@ -96,6 +96,9 @@ void merge(vector<vector<int>> &all, vector<int> &arr)
 int main(int argc, char **argv)
 {
 
+    freopen(argv[1], "r", stdin);
+    freopen(argv[2], "w", stdout);
+
     int rank, numprocs;
 
     /* start up MPI */
@@ -113,7 +116,6 @@ int main(int argc, char **argv)
     vector<int> arr;
     if (rank == 0)
     {
-        ifstream cin(argv[1]);
         cin >> n;
         arr.resize(n);
         for (int i = 0; i < n; i++)
@@ -179,10 +181,9 @@ int main(int argc, char **argv)
         // }
         vector<int> final;
         merge(all_vecs, final);
-        ofstream cout(argv[2]);
         for (int i = 0; i < final.size(); i++)
         {
-            cout << final[i] << " ";
+            cout << final[i] << "\n";
         }
     }
     else
@@ -209,7 +210,7 @@ int main(int argc, char **argv)
     MPI_Reduce(&elapsedTime, &maxTime, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
     if (rank == 0)
     {
-        printf("Total time (s): %f\n", maxTime);
+        // printf("Total time (s): %f\n", maxTime);
     }
 
     /* shut down MPI */
