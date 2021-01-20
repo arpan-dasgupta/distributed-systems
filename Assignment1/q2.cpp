@@ -97,7 +97,7 @@ int main(int argc, char **argv)
 {
 
     freopen(argv[1], "r", stdin);
-    freopen(argv[2], "a", stdout);
+    freopen(argv[2], "w", stdout);
 
     int rank, numprocs;
 
@@ -183,7 +183,7 @@ int main(int argc, char **argv)
         merge(all_vecs, final);
         for (int i = 0; i < final.size(); i++)
         {
-            cout << final[i] << " ";
+            cout << final[i] << "\n";
         }
     }
     else
@@ -210,7 +210,7 @@ int main(int argc, char **argv)
     MPI_Reduce(&elapsedTime, &maxTime, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
     if (rank == 0)
     {
-        printf("Total time (s): %f\n", maxTime);
+        // printf("Total time (s): %f\n", maxTime);
     }
 
     /* shut down MPI */
