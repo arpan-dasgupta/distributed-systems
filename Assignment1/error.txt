@@ -1,0 +1,246 @@
+=================================================================
+==57985==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 4592 byte(s) in 7 object(s) allocated from:
+    #0 0x7f9694a9dbc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+
+=================================================================
+
+=================================================================
+==57996==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 4592 byte(s) in 7 object(s) allocated from:
+    #0 0x7f4b266e1bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7f4b223ac2af  (<unknown module>)
+
+Direct leak of 4592 byte(s) in 7 object(s) allocated from:
+    #0 0x7f4b266e1bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7f4b265786e5 in ompi_op_base_op_select (/usr/local/lib/libmpi.so.40+0xc86e5)
+
+Direct leak of 89 byte(s) in 3 object(s) allocated from:
+    #0 0x7f4b266e1bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7f4b257fedc7  (/lib/x86_64-linux-gnu/libc.so.6+0x8edc7)
+
+Direct leak of 64 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4b266e1bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7f4b2260514e  (<unknown module>)
+
+Direct leak of 35 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4b2666a3dd in strdup (/lib/x86_64-linux-gnu/libasan.so.5+0x963dd)
+    #1 0x7f4b21536ead  (<unknown module>)
+
+Direct leak of 24 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4b266e1bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7f4b25498adf in opal_hwloc201_hwloc_bitmap_alloc (/usr/local/lib/libopen-pal.so.40+0x94adf)
+
+Direct leak of 5 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4b2666a3dd in strdup (/lib/x86_64-linux-gnu/libasan.so.5+0x963dd)
+
+=================================================================
+==57986==ERROR: LeakSanitizer: detected memory leaks
+
+    #1 0x7f4b21536d54  (<unknown module>)
+Direct leak of 4592 byte(s) in 7 object(s) allocated from:
+
+Direct leak of 1 byte(s) in 1 object(s) allocated from:
+    #0 0x7f3a72883bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #0 0x7f4b2666a3dd in strdup (/lib/x86_64-linux-gnu/libasan.so.5+0x963dd)
+    #1 0x7f3a6e5572af  (<unknown module>)
+
+    #1 0x7f4b22350536  (<unknown module>)
+
+Direct leak of 4592 byte(s) in 7 object(s) allocated from:
+    #0 0x7f3a72883bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+Indirect leak of 64 byte(s) in 1 object(s) allocated from:
+    #1 0x7f3a7271a6e5 in ompi_op_base_op_select (/usr/local/lib/libmpi.so.40+0xc86e5)
+    #0 0x7f4b266e1bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7f4b25498aff in opal_hwloc201_hwloc_bitmap_alloc (/usr/local/lib/libopen-pal.so.40+0x94aff)
+
+
+Direct leak of 89 byte(s) in 3 object(s) allocated from:
+Indirect leak of 15 byte(s) in 1 object(s) allocated from:
+    #0 0x7f3a72883bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #0 0x7f4b2666a3dd in strdup (/lib/x86_64-linux-gnu/libasan.so.5+0x963dd)
+    #1 0x7f3a719a0dc7  (/lib/x86_64-linux-gnu/libc.so.6+0x8edc7)
+
+Direct leak of 64 byte(s) in 1 object(s) allocated from:
+    #0 0x7f3a72883bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7f4b226051a9  (<unknown module>)
+
+SUMMARY: AddressSanitizer: 9481 byte(s) leaked in 24 allocation(s).
+    #1 0x7f3a6e55014e  (<unknown module>)
+
+Direct leak of 35 byte(s) in 1 object(s) allocated from:
+    #0 0x7f3a7280c3dd in strdup (/lib/x86_64-linux-gnu/libasan.so.5+0x963dd)
+    #1 0x7f3a6d736ead  (<unknown module>)
+
+Direct leak of 24 byte(s) in 1 object(s) allocated from:
+    #0 0x7f3a72883bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7f3a7163aadf in opal_hwloc201_hwloc_bitmap_alloc (/usr/local/lib/libopen-pal.so.40+0x94adf)
+
+
+=================================================================
+==58007==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 4592 byte(s) in 7 object(s) allocated from:
+Direct leak of 5 byte(s) in 1 object(s) allocated from:
+    #0 0x7fbf44178bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #0 0x7f3a7280c3dd in strdup (/lib/x86_64-linux-gnu/libasan.so.5+0x963dd)
+--------------------------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+==57992==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 4592 byte(s) in 7 object(s) allocated from:
+    #0 0x7fa6f8b02bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7fbf3fe462af  (<unknown module>)
+    #1 0x7f969076e2af  (<unknown module>)
+
+Direct leak of 4592 byte(s) in 7 object(s) allocated from:
+    #0 0x7f9694a9dbc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7f96949346e5 in ompi_op_base_op_select (/usr/local/lib/libmpi.so.40+0xc86e5)
+
+Direct leak of 89 byte(s) in 3 object(s) allocated from:
+    #0 0x7f9694a9dbc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7f9693bbadc7  (/lib/x86_64-linux-gnu/libc.so.6+0x8edc7)
+
+Direct leak of 64 byte(s) in 1 object(s) allocated from:
+    #0 0x7f9694a9dbc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7f969076714e  (<unknown module>)
+
+Direct leak of 35 byte(s) in 1 object(s) allocated from:
+    #0 0x7f9694a263dd in strdup (/lib/x86_64-linux-gnu/libasan.so.5+0x963dd)
+    #1 0x7f968f936ead  (<unknown module>)
+
+Direct leak of 24 byte(s) in 1 object(s) allocated from:
+    #0 0x7f9694a9dbc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7f9693854adf in opal_hwloc201_hwloc_bitmap_alloc (/usr/local/lib/libopen-pal.so.40+0x94adf)
+
+Direct leak of 5 byte(s) in 1 object(s) allocated from:
+    #0 0x7f9694a263dd in strdup (/lib/x86_64-linux-gnu/libasan.so.5+0x963dd)
+    #1 0x7f968f936d54  (<unknown module>)
+
+Direct leak of 1 byte(s) in 1 object(s) allocated from:
+    #0 0x7f9694a263dd in strdup (/lib/x86_64-linux-gnu/libasan.so.5+0x963dd)
+    #1 0x7f969070b536  (<unknown module>)
+    #1 0x7f3a6d736d54  (<unknown module>)
+
+Direct leak of 1 byte(s) in 1 object(s) allocated from:
+    #0 0x7f3a7280c3dd in strdup (/lib/x86_64-linux-gnu/libasan.so.5+0x963dd)
+    #1 0x7f3a6e50c536  (<unknown module>)
+
+Indirect leak of 64 byte(s) in 1 object(s) allocated from:
+    #0 0x7f3a72883bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7f3a7163aaff in opal_hwloc201_hwloc_bitmap_alloc (/usr/local/lib/libopen-pal.so.40+0x94aff)
+
+Indirect leak of 15 byte(s) in 1 object(s) allocated from:
+    #0 0x7f3a7280c3dd in strdup (/lib/x86_64-linux-gnu/libasan.so.5+0x963dd)
+    #1 0x7f3a6e5501a9  (<unknown module>)
+
+SUMMARY: AddressSanitizer: 9481 byte(s) leaked in 24 allocation(s).
+    #1 0x7fa6f47ac2af  (<unknown module>)
+
+Direct leak of 4592 byte(s) in 7 object(s) allocated from:
+    #0 0x7fa6f8b02bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7fa6f89996e5 in ompi_op_base_op_select (/usr/local/lib/libmpi.so.40+0xc86e5)
+
+Direct leak of 89 byte(s) in 3 object(s) allocated from:
+    #0 0x7fa6f8b02bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7fa6f7c1fdc7  (/lib/x86_64-linux-gnu/libc.so.6+0x8edc7)
+
+Direct leak of 64 byte(s) in 1 object(s) allocated from:
+    #0 0x7fa6f8b02bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7fa6f4a2514e  (<unknown module>)
+
+Direct leak of 35 byte(s) in 1 object(s) allocated from:
+    #0 0x7fa6f8a8b3dd in strdup (/lib/x86_64-linux-gnu/libasan.so.5+0x963dd)
+    #1 0x7fa6f3936ead  (<unknown module>)
+
+Direct leak of 24 byte(s) in 1 object(s) allocated from:
+    #0 0x7fa6f8b02bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7fa6f78b9adf in opal_hwloc201_hwloc_bitmap_alloc (/usr/local/lib/libopen-pal.so.40+0x94adf)
+
+Direct leak of 5 byte(s) in 1 object(s) allocated from:
+    #0 0x7fa6f8a8b3dd in strdup (/lib/x86_64-linux-gnu/libasan.so.5+0x963dd)
+    #1 0x7fa6f3936d54  (<unknown module>)
+
+Direct leak of 1 byte(s) in 1 object(s) allocated from:
+    #0 0x7fa6f8a8b3dd in strdup (/lib/x86_64-linux-gnu/libasan.so.5+0x963dd)
+
+=================================================================
+==57991==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 4592 byte(s) in 7 object(s) allocated from:
+    #0 0x7f34a7f71bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7f34a3c452af  (<unknown module>)
+
+Direct leak of 4592 byte(s) in 7 object(s) allocated from:
+    #0 0x7f34a7f71bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7f34a7e086e5 in ompi_op_base_op_select (/usr/local/lib/libmpi.so.40+0xc86e5)
+
+Direct leak of 89 byte(s) in 3 object(s) allocated from:
+
+=================================================================
+==57989==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 4592 byte(s) in 7 object(s) allocated from:
+    #0 0x7f0a4ae42bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7f0a46d362af  (<unknown module>)
+
+Direct leak of 4592 byte(s) in 7 object(s) allocated from:
+    #0 0x7f0a4ae42bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7f0a4acd96e5 in ompi_op_base_op_select (/usr/local/lib/libmpi.so.40+0xc86e5)
+
+Direct leak of 89 byte(s) in 3 object(s) allocated from:
+    #0 0x7f0a4ae42bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7f0a49f5fdc7  (/lib/x86_64-linux-gnu/libc.so.6+0x8edc7)
+
+Direct leak of 64 byte(s) in 1 object(s) allocated from:
+    #0 0x7f0a4ae42bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7f0a46d2f14e  (<unknown module>)
+
+Direct leak of 35 byte(s) in 1 object(s) allocated from:
+    #0 0x7f0a4adcb3dd in strdup (/lib/x86_64-linux-gnu/libasan.so.5+0x963dd)
+
+Direct leak of 4592 byte(s) in 7 object(s) allocated from:
+    #0 0x7fbf44178bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7fbf4400f6e5 in ompi_op_base_op_select (/usr/local/lib/libmpi.so.40+0xc86e5)
+
+Direct leak of 89 byte(s) in 3 object(s) allocated from:
+    #0 0x7fbf44178bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7fbf43295dc7  (/lib/x86_64-linux-gnu/libc.so.6+0x8edc7)
+
+Direct leak of 64 byte(s) in 1 object(s) allocated from:
+    #0 0x7fbf44178bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7fbf3fe3f14e  (<unknown module>)
+
+Direct leak of 35 byte(s) in 1 object(s) allocated from:
+    #0 0x7fbf441013dd in strdup (/lib/x86_64-linux-gnu/libasan.so.5+0x963dd)
+    #1 0x7fbf3f036ead  (<unknown module>)
+
+Direct leak of 24 byte(s) in 1 object(s) allocated from:
+    #0 0x7fbf44178bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7fbf42f2fadf in opal_hwloc201_hwloc_bitmap_alloc (/usr/local/lib/libopen-pal.so.40+0x94adf)
+
+Direct leak of 5 byte(s) in 1 object(s) allocated from:
+    #0 0x7fbf441013dd in strdup (/lib/x86_64-linux-gnu/libasan.so.5+0x963dd)
+    #1 0x7fbf3f036d54  (<unknown module>)
+
+Direct leak of 1 byte(s) in 1 object(s) allocated from:
+    #0 0x7fbf441013dd in strdup (/lib/x86_64-linux-gnu/libasan.so.5+0x963dd)
+    #1 0x7fbf3fc5f536  (<unknown module>)
+
+Indirect leak of 64 byte(s) in 1 object(s) allocated from:
+    #0 0x7fbf44178bc8 in malloc (/lib/x86_64-linux-gnu/libasan.so.5+0x10dbc8)
+    #1 0x7fbf42f2faff in opal_hwloc201_hwloc_bitmap_alloc (/usr/local/lib/libopen-pal.so.40+0x94aff)
+
+Indirect leak of 15 byte(s) in 1 object(s) allocated from:
+    #0 0x7fbf441013dd in strdup (/lib/x86_64-linux-gnu/libasan.so.5+0x963dd)
+--------------------------------------------------------------------------
+mpirun detected that one or more processes exited with non-zero status, thus causing
+the job to be terminated. The first process to do so was:
+
+  Process name: [[57219,1],8]
+  Exit code:    1
+--------------------------------------------------------------------------
