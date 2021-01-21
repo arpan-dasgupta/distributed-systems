@@ -9,3 +9,6 @@ for nproc in {1..11}; do for i in {3,5,7}; do touch q1-$nproc; echo $i | mpirun 
 mpic++ q2.cpp; for nproc in {1..11}; do mpirun -np $nproc --use-hwthread-cpus --oversubscribe ./a.out test_case_in test_case_out; diff test_case_out test_case_corr; done
 
 mpic++ q3.cpp; for nproc in {1..11}; do mpirun -np $nproc --use-hwthread-cpus --oversubscribe ./a.out huck.col huck.out; ./checker.out huck.col huck.out  ; done
+
+g++ q3_checker.cpp -o checker.out -fsanitize=address -fsanitize=undefined
+mpic++ q3.cpp; for nproc in {1..11}; do mpirun -np $nproc --use-hwthread-cpus --oversubscribe ./a.out test_q3_1.in test_q3_1.out; ./checker.out test_q3_1.in test_q3_1.out ; done

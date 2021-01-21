@@ -90,9 +90,10 @@ int main(int argc, char **argv)
 
     int max_colors;
     cin >> max_colors;
+    // cout << max_colors << " " << argv[2] << " __ \n";
     if (max_colors > max_deg + 1)
     {
-        cout << "INVALID";
+        cout << "INVALID 1 : " << max_colors << '\n';
         return 0;
     }
 
@@ -101,7 +102,7 @@ int main(int argc, char **argv)
         cin >> colors[i];
         if (not cin.good() or colors[i] > max_colors)
         {
-            cout << "INVALID";
+            cout << "INVALID 2 : " << max_colors << '\n';
             return 0;
         }
     }
