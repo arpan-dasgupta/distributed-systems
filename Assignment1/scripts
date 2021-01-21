@@ -6,4 +6,6 @@ for nproc in {1..11}; do for i in {1..10000}; do touch q1-$nproc; echo $i | mpir
 
 for nproc in {1..11}; do for i in {3,5,7}; do touch q1-$nproc; echo $i | mpirun -np $nproc --oversubscribe ./a.out /dev/stdin q1-$nproc; done; done
 
-for nproc in {1..11}; do mpirun -np 3 --use-hwthread-cpus --oversubscribe ./a.out test_case_in test_case_out; diff test_case_out test_case_corr; done
+mpic++ q2.cpp; for nproc in {1..11}; do mpirun -np $nproc --use-hwthread-cpus --oversubscribe ./a.out test_case_in test_case_out; diff test_case_out test_case_corr; done
+
+mpic++ q3.cpp; for nproc in {1..11}; do mpirun -np $nproc --use-hwthread-cpus --oversubscribe ./a.out huck.col huck.out; ./checker.out huck.col huck.out  ; done

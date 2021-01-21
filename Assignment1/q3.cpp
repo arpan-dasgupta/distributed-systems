@@ -122,7 +122,7 @@ int main(int argc, char **argv)
 {
 
     freopen(argv[1], "r", stdin);
-    freopen(argv[2], "a", stdout);
+    freopen(argv[2], "w", stdout);
 
     int rank, numprocs;
 
@@ -180,9 +180,11 @@ int main(int argc, char **argv)
         // color_reduce(color, 0, m - 1, adj, del);
         // cout << "del = " << del << '\n';
         color_reduce_parallel(color, 0, m - 1, adj, 0, 0, del);
+        set<int> all(color.begin(), color.end());
+        cout << all.size() << '\n';
         for (int i = 0; i < m; i++)
         {
-            cout << color[i] << " ";
+            cout << color[i] + 1 << " ";
         }
         cout << '\n';
     }
