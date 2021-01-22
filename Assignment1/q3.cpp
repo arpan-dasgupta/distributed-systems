@@ -109,7 +109,6 @@ void color_reduce_parallel(vector<int> &color, int l, int r, vector<vector<int>>
         {
             color[i] = new_color[i];
         }
-
         combine_reduce(color, l, r, mid, adj, del);
     }
     else
@@ -121,8 +120,8 @@ void color_reduce_parallel(vector<int> &color, int l, int r, vector<vector<int>>
 int main(int argc, char **argv)
 {
 
-    freopen(argv[1], "r", stdin);
-    freopen(argv[2], "w", stdout);
+    // freopen(argv[1], "r", stdin);
+    // freopen(argv[2], "w", stdout);
 
     int rank, numprocs;
 
@@ -139,19 +138,34 @@ int main(int argc, char **argv)
 
     nump = numprocs;
 
-    int n, del = 0;
+    int del = 0;
     vector<int> arr;
+    int n, m;
     if (rank == 0)
     {
-        int n, m;
+        ifstream cin(argv[1]);
         cin >> n >> m;
+        MPI_Bcast(&n, 1, MPI_INT, 0, MPI_COMM_WORLD);
+        MPI_Bcast(&m, 1, MPI_INT, 0, MPI_COMM_WORLD);
         vector<pair<int, int>> edges;
+        vector<int> aa, bb;
         for (int i = 0; i < m; i++)
         {
             int u, v;
             cin >> u >> v;
+            aa.push_back(u);
+            bb.push_back(v);
             edges.push_back({u, v});
         }
+
+        // exit(0);
+
+        for (int i = 1; i < nump; i++)
+        {
+            send_vec(aa, i);
+            send_vec(bb, i);
+        }
+
         vector<vector<int>> adj(m);
         for (int i = 0; i < m; i++)
         {
@@ -173,6 +187,7 @@ int main(int argc, char **argv)
             // cout << '\n';
             del = max(del, int(adj[i].size()));
         }
+        cout << del << " ";
         MPI_Bcast(&del, 1, MPI_INT, 0, MPI_COMM_WORLD);
         vector<int> color(m, 0);
         for (int i = 0; i < m; i++)
@@ -181,6 +196,7 @@ int main(int argc, char **argv)
         // cout << "del = " << del << '\n';
         color_reduce_parallel(color, 0, m - 1, adj, 0, 0, del);
         set<int> all(color.begin(), color.end());
+        ofstream cout(argv[2]);
         cout << all.size() << '\n';
         for (int i = 0; i < m; i++)
         {
@@ -190,13 +206,15 @@ int main(int argc, char **argv)
     }
     else
     {
-        int n, m;
-        cin >> n >> m;
+        vector<int> aa, bb;
+        receive_vec(aa, 0);
+        receive_vec(bb, 0);
         vector<pair<int, int>> edges;
         for (int i = 0; i < m; i++)
         {
             int u, v;
-            cin >> u >> v;
+            u = aa[i];
+            v = bb[i];
             edges.push_back({u, v});
         }
         vector<vector<int>> adj(m);
@@ -211,6 +229,7 @@ int main(int argc, char **argv)
                 }
             }
         }
+        // exit(0);
         vector<int> color;
         int rr = 1;
         while (rr <= rank)
@@ -240,7 +259,7 @@ int main(int argc, char **argv)
     MPI_Reduce(&elapsedTime, &maxTime, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
     if (rank == 0)
     {
-        // printf("Total time (s): %f\n", maxTime);
+        printf("Total time (s): %f\n", maxTime);
     }
 
     /* shut down MPI */
