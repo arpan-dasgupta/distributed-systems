@@ -43,17 +43,6 @@ int partition(vector<int> &arr, int l, int r)
     return fe;
 }
 
-void quicksort(vector<int> &arr, int low, int high)
-{
-    // cout << low << " " << high << '\n';
-    if (low < high)
-    {
-        int pos = partition(arr, low, high);
-        quicksort(arr, low, pos - 1);
-        quicksort(arr, pos + 1, high);
-    }
-}
-
 void send_vec(vector<int> &arr, int rank)
 {
     int val = arr.size();
@@ -68,6 +57,35 @@ void receive_vec(vector<int> &arr, int rank)
     MPI_Recv(&num, 1, MPI_INT, rank, send_data_tag, MPI_COMM_WORLD, &stat);
     arr.resize(num);
     MPI_Recv(&arr[0], num, MPI_INT, rank, send_data_tag, MPI_COMM_WORLD, &stat);
+}
+
+void quicksort(vector<int> &arr, int low, int high)
+{
+    // cout << low << " " << high << '\n';
+    if (low < high)
+    {
+        int pos = partition(arr, low, high);
+        quicksort(arr, low, pos - 1);
+        quicksort(arr, pos + 1, high);
+    }
+}
+
+void quicksort_parallel(vector<int> &arr, int low, int high, int depth, int rank)
+{
+    if (low < high)
+    {
+        int pos = partition(arr, low, high);
+
+        int next_rank = rank + pow(2, depth);
+        if (next_rank < numpr)
+        {
+        }
+        else
+        {
+            quicksort(arr, low, pos - 1);
+            quicksort(arr, pos + 1, high);
+        }
+    }
 }
 
 void merge(vector<vector<int>> &all, vector<int> &arr)
@@ -110,6 +128,7 @@ int main(int argc, char **argv)
     // vector<pair<int,int>> trans
 
     int n;
+    numpr = numprocs;
     vector<int> arr;
     if (rank == 0)
     {
