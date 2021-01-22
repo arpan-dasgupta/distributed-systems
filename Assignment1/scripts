@@ -16,3 +16,8 @@ mpic++ q3.cpp; for nproc in {1..11}; do mpirun -np $nproc --use-hwthread-cpus --
 mpic++ q3.cpp; for nproc in {1..11}; do mpirun -np $nproc --use-hwthread-cpus --oversubscribe ./a.out huck.col huck.out; ./checker.out huck.col huck.out ; done
 mpic++ q3.cpp; for nproc in {1..11}; do mpirun -np $nproc --use-hwthread-cpus --oversubscribe ./a.out myciel6.col myciel6.out; ./checker.out myciel6.col myciel6.out ; done
 mpic++ q3.cpp; for nproc in {1..11}; do mpirun -np $nproc --use-hwthread-cpus --oversubscribe ./a.out david.col david.out; ./checker.out david.col david.out ; done
+
+mpic++ q2.cpp; for nproc in {1..11}; do mpirun -np 11 --use-hwthread-cpus --oversubscribe ./a.out file file.out; done
+mpic++ q2.cpp; for nproc in {1..11}; do mpirun -np 11 --use-hwthread-cpus --oversubscribe ./a.out demo2.in demo2.out; done
+mpic++ q2.cpp; for nproc in {1..11}; do mpirun -np 11 --use-hwthread-cpus --oversubscribe ./a.out in.txt out; done
+mpic++ q2.cpp; for nproc in {1..11}; do mpirun -np 11 --use-hwthread-cpus --oversubscribe ./a.out in\(1\).txt out; done

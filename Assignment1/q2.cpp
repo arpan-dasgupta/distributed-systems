@@ -179,6 +179,10 @@ int main(int argc, char **argv)
         // }
         vector<int> final;
         merge(all_vecs, final);
+
+        sort(arr.begin(), arr.end());
+        assert(arr == final);
+
         ofstream cout(argv[2]);
         for (int i = 0; i < final.size(); i++)
         {
