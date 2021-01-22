@@ -140,13 +140,11 @@ int main(int argc, char **argv)
 
     int del = 0;
     vector<int> arr;
-    int n, m;
     if (rank == 0)
     {
+        int n, m;
         ifstream cin(argv[1]);
         cin >> n >> m;
-        MPI_Bcast(&n, 1, MPI_INT, 0, MPI_COMM_WORLD);
-        MPI_Bcast(&m, 1, MPI_INT, 0, MPI_COMM_WORLD);
         vector<pair<int, int>> edges;
         vector<int> aa, bb;
         for (int i = 0; i < m; i++)
@@ -158,13 +156,14 @@ int main(int argc, char **argv)
             edges.push_back({u, v});
         }
 
-        // exit(0);
-
         for (int i = 1; i < nump; i++)
         {
+            MPI_Send(&n, 1, MPI_INT, i, send_data_tag, MPI_COMM_WORLD);
+            MPI_Send(&m, 1, MPI_INT, i, send_data_tag, MPI_COMM_WORLD);
             send_vec(aa, i);
             send_vec(bb, i);
         }
+        // exit(0);
 
         vector<vector<int>> adj(m);
         for (int i = 0; i < m; i++)
@@ -187,7 +186,7 @@ int main(int argc, char **argv)
             // cout << '\n';
             del = max(del, int(adj[i].size()));
         }
-        cout << del << " ";
+        // cout << del << " ";
         MPI_Bcast(&del, 1, MPI_INT, 0, MPI_COMM_WORLD);
         vector<int> color(m, 0);
         for (int i = 0; i < m; i++)
@@ -206,7 +205,11 @@ int main(int argc, char **argv)
     }
     else
     {
+        int n, m;
         vector<int> aa, bb;
+        MPI_Status stat;
+        MPI_Recv(&n, 1, MPI_INT, 0, send_data_tag, MPI_COMM_WORLD, &stat);
+        MPI_Recv(&m, 1, MPI_INT, 0, send_data_tag, MPI_COMM_WORLD, &stat);
         receive_vec(aa, 0);
         receive_vec(bb, 0);
         vector<pair<int, int>> edges;
@@ -229,6 +232,8 @@ int main(int argc, char **argv)
                 }
             }
         }
+        // cout << n << m << " ok ";
+        // exit(0);
         // exit(0);
         vector<int> color;
         int rr = 1;
@@ -241,7 +246,6 @@ int main(int argc, char **argv)
 
         receive_vec(color, sender);
         int l, r, depth;
-        MPI_Status stat;
         MPI_Recv(&l, 1, MPI_INT, sender, send_data_tag, MPI_COMM_WORLD, &stat);
         MPI_Recv(&r, 1, MPI_INT, sender, send_data_tag, MPI_COMM_WORLD, &stat);
         MPI_Recv(&depth, 1, MPI_INT, sender, send_data_tag, MPI_COMM_WORLD, &stat);

@@ -45,25 +45,29 @@ void read_clq(string file_name)
     fin.close();
 }
 
+int adj[1000][1000];
 int main(int argc, char **argv)
 {
     if (not READ_DSC)
     {
-        freopen(argv[1], "r", stdin);
+        // auto rv = freopen(argv[1], "r", stdin);
+        ifstream cin(argv[1]);
         cin >> n >> m;
+        // cout << n << " " << m << '\n';
+        // cout << cin.good() << " ---- \n";
         for (int i = 0; i < m; i++)
         {
             int u, v;
             cin >> u >> v;
             edges.push_back({u, v});
         }
+        // fclose(rv);
     }
     else
     {
         read_clq(string(argv[1]));
     }
 
-    int adj[1000][1000];
     for (int i = 0; i < m; i++)
     {
         for (int j = i + 1; j < m; j++)
@@ -85,16 +89,22 @@ int main(int argc, char **argv)
         max_deg = max(max_deg, deg);
     }
 
-    freopen(argv[2], "r", stdin);
-    cout << argv[2] << '\n';
+    // auto rv = freopen(argv[2], "r", stdin);
+    ifstream cin(argv[2]);
+    // cout << argv[2] << "\n";
+    // if (rv == NULL)
+    // {
+    //     perror("Fail");
+    // }
+    // cout << rv << '\n';
     vector<int> colors(m);
 
     int max_colors;
     cin >> max_colors;
-    // cout << max_colors << " " << argv[2] << " __ \n";
+    // cout << max_colors << '\n';
     if (max_colors > max_deg + 1)
     {
-        cout << "INVALID 1 : " << max_colors << '\n';
+        cout << "INVALID";
         return 0;
     }
 
@@ -103,12 +113,12 @@ int main(int argc, char **argv)
         cin >> colors[i];
         if (not cin.good())
         {
-            cout << "NOO \n";
-            return 0;
+            cout << " This \n"
+                 << i << '\n';
         }
-        if (colors[i] > max_colors)
+        if (not cin.good() or colors[i] > max_colors)
         {
-            cout << "INVALID 2 : " << max_colors << '\n';
+            cout << "INVALID ++ ";
             return 0;
         }
     }

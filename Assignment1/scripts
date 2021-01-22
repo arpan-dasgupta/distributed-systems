@@ -11,4 +11,8 @@ mpic++ q2.cpp; for nproc in {1..11}; do mpirun -np $nproc --use-hwthread-cpus --
 mpic++ q3.cpp; for nproc in {1..11}; do mpirun -np $nproc --use-hwthread-cpus --oversubscribe ./a.out huck.col huck.out; ./checker.out huck.col huck.out  ; done
 
 g++ q3_checker.cpp -o checker.out -fsanitize=address -fsanitize=undefined
+mpic++ q3.cpp; for nproc in {1..11}; do mpirun -np $nproc --use-hwthread-cpus --oversubscribe ./a.out demo3.in demo3.out; ./checker.out demo3.in demo3.out ; done
 mpic++ q3.cpp; for nproc in {1..11}; do mpirun -np $nproc --use-hwthread-cpus --oversubscribe ./a.out test_q3_1.in test_q3_1.out; ./checker.out test_q3_1.in test_q3_1.out ; done
+mpic++ q3.cpp; for nproc in {1..11}; do mpirun -np $nproc --use-hwthread-cpus --oversubscribe ./a.out huck.col huck.out; ./checker.out huck.col huck.out ; done
+mpic++ q3.cpp; for nproc in {1..11}; do mpirun -np $nproc --use-hwthread-cpus --oversubscribe ./a.out myciel6.col myciel6.out; ./checker.out myciel6.col myciel6.out ; done
+mpic++ q3.cpp; for nproc in {1..11}; do mpirun -np $nproc --use-hwthread-cpus --oversubscribe ./a.out david.col david.out; ./checker.out david.col david.out ; done
