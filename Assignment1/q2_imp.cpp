@@ -29,17 +29,7 @@ int partition(vector<int> &arr, int l, int r)
             fe++;
         }
     }
-    // for (ll i = l; i <= r; i++)
-    // {
-    //     cout << arr[i] << " ";
-    // }
-    // cout << '\n';
     swap(arr[r], arr[fe]);
-    // for (ll i = l; i <= r; i++)
-    // {
-    //     cout << arr[i] << " ";
-    // }
-    // cout << '\n';
     return fe;
 }
 
@@ -166,8 +156,6 @@ int main(int argc, char **argv)
 
         send_vec(arr, sender);
     }
-
-    // MPI_Bcast(&n, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
     MPI_Barrier(MPI_COMM_WORLD);
     double elapsedTime = MPI_Wtime() - tbeg;
