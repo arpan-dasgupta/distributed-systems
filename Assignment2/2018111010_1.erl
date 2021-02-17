@@ -67,5 +67,5 @@ main(Args) ->
     % L = for(1, NodeCount-1),
     % io:format("~p~n", [H]),
     file:close(Input),
-    file:close(Input)
+    file:close(Output)
     .
