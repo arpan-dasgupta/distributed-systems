@@ -36,57 +36,78 @@ proc(I,AvgEdges,EdgeCount,EdgeList,Distances,Parent) ->
     End = min(Start+AvgEdges-1,EdgeCount-1),
     if 
     Start>End ->
-        Parent ! Distances;
+        Parent ! {self(), Distances};
     true ->
         NewDist = update(Start,End+1,EdgeList,Distances),
-        Parent ! {self(),NewDist}
+        % io:format("~p~p~n", [Start,End]),
+        % io:format("~p~n", [Parent]),
+        Parent ! {self(), NewDist}
     end.
 
 minim([],[])->
     [];
-minim([EleA|ListA],[EleB,ListB]) ->
-    [min(EleA, EleB),minim(ListA,ListB)].
+minim([EleA|ListA],[EleB|ListB]) ->
+    [min(EleA, EleB)|minim(ListA,ListB)].
+
+% temp(A,B) ->
+%     A.
 
 update_distances(Distances,[]) -> 
     Distances;
 update_distances(Distances,[Pid|Pids]) ->
+    % io:format("~p~n", [Pid]),
     receive
         {Pid, Result} ->
-            io:format("L is ~w~n", [Result])
+            io:format("", [])
     end,
     UpdatedDist = update_distances(Distances,Pids),
+    % io:format("~p~p~n", [UpdatedDist,Result]),
     minim(Result,UpdatedDist).
+    % UpdatedDist.
 
-bf(Distances,EdgeList,EdgeCount,ProcCount,0) ->
+bf(Distances,_,_,_,0) ->
     Distances;
 bf(Distances,EdgeList,EdgeCount,ProcCount,Times) ->
     AvgEdges = (EdgeCount + ProcCount - 1) div ProcCount,
-    Processes = [spawn(fun() -> proc(I,AvgEdges,EdgeCount,EdgeList,Distances,self()) end) || I <- lists:seq(0, ProcCount-1)],
+    CPID = self(),
+    Processes = [spawn(fun() -> proc(I,AvgEdges,EdgeCount,EdgeList,Distances,CPID) end) || I <- lists:seq(0, ProcCount-1)],
+    % io:format("~p~n", [Processes]),
     NewDist = update_distances(Distances, Processes),
+    % NewDist = temp(Distances, Processes),
     bf(NewDist,EdgeList,EdgeCount,ProcCount,Times-1).
 
+printer([],_,_) ->
+    true;
+printer([Val | Rest], Ind, OutputFile) ->
+    {ok, Output} = file:open(OutputFile, [append]),
+    io:format(Output, "~p ~p~n", [Ind, Val]),
+    printer(Rest,Ind+1,OutputFile).
 
 main(Args) -> 
     [InputFile, OutputFile] = Args,
     {ok, Input} = file:open(InputFile, [read]),
     {ok, Output} = file:open(OutputFile, [write]),
+    io:fwrite(Output,"",[]),
 
     [ProcCount] = read_int(Input),
     [NodeCount, EdgeCount] = read_two_ints(Input),
     EdgeList = [read_three_ints(Input) || _ <- lists:seq(0, EdgeCount-1)],
     [StartVertex] = read_int(Input),
 
-    io:format("~p~p~p~p~n", [ProcCount, NodeCount, EdgeCount, StartVertex]),
-    io:format("~p~n", [EdgeList]),
+    % io:format("~p~p~p~p~n", [ProcCount, NodeCount, EdgeCount, StartVertex]),
+    % io:format("~p~n", [EdgeList]),
 
     % Initialize distance matrix
-    Distances = [1000000000 || _<-lists:seq(1,NodeCount+1)],
-    point_update(Distances, StartVertex, 0),
+    Distances = [100000000000 || _<-lists:seq(1,NodeCount)],
+    NewDist = point_update(Distances, StartVertex, 0),
+
+    % io:format("~p~n", [self()]),
 
     % Start the Bellman-Ford algo
-    FinalDistances = bf(Distances,EdgeList,EdgeCount,ProcCount,NodeCount),
-    io:format("~p~n", [FinalDistances]),
+    FinalDistances = bf(NewDist,EdgeList,EdgeCount,ProcCount,NodeCount),
+    % io:format("~p~n", [FinalDistances]),
+    printer(FinalDistances, 1, OutputFile),
 
     file:close(Input),
-    file:close(Input)
+    file:close(Output)
     .
