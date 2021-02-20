@@ -1,11 +1,11 @@
 -module(demo). 
 -export([start/1]). 
 
-read(File) ->
-    case file:read_line(File) of
-        {ok, Data} -> Data;
-        eof        -> []
-    end.
+% read(File) ->
+%     case file:read_line(File) of
+%         {ok, Data} -> Data;
+%         eof        -> []
+%     end.
 
 read_two_ints(InpDevice) ->
     case io:fread(InpDevice,"kjds", "~d ~d") of
@@ -32,5 +32,6 @@ start(Args) ->
     io:fwrite("~w",[A]),
     io:fwrite("~w",[B]),
     % io:fwrite(B),
+    file:close(Output),
     file:close(Input).
     % io:fwrite(NewData).
