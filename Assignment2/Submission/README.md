@@ -19,3 +19,4 @@
 - At each iteration, we spawn `p` processes and tell each process to relax their edges and return the updated distances. A minimum of all these returned distances is taken.
 - Finally the distance after all iterations is updated and printed.
 - This algorithm should provide a speedup depending on number of processes used.
+- The complexity of the algorithm is O(V.(E/P + VP)) = O(V^2P).
