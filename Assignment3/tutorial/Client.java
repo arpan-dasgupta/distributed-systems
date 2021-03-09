@@ -5,8 +5,8 @@ import java.util.*;
 public class Client {  
    private Client() {}  
    public static void main(String[] args) {  
+      Scanner obj = new Scanner(System.in);
       while(true){
-         Scanner obj = new Scanner(System.in);
          // System.out.println("Input command");
          String command = obj.next();
 
@@ -39,6 +39,11 @@ public class Client {
                String identifier = obj.next();
                int val = stub.getMST(identifier);
                System.err.println(val);
+            }
+            else if(command.equals("check"))
+            {
+               String identifier = obj.next();
+               int val = stub.checkConcurrency(identifier);
             }
 
             // System.err.println(str);

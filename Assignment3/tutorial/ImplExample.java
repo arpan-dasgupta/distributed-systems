@@ -68,6 +68,15 @@ class Graph{
       System.out.println("OKKK");
    }
 
+   public void concurrencyCheck()
+   {
+      for(long i=0;i<10000000000l;i++)
+      {
+         if(i%1000000000==0)
+            System.out.println(i/1000000000);
+      }
+   }
+
    public int getMST()
    {
       if(edges.size()==0)
@@ -95,29 +104,39 @@ class Graph{
 }
 
 public class ImplExample implements Hello {  
-   Map<String, Graph> map = new HashMap<String, Graph>();  
+   Map<String, Graph> map = new HashMap<String, Graph>();
    // Implementing the interface method 
    public String addGraph(String identifier, int numNodes)
    {
-      Graph newg = new Graph(numNodes);
-      map.put(identifier,newg);
+      synchronized(map){
+         Graph newg = new Graph(numNodes);
+         map.put(identifier,newg);
+      }
       return "Ok";
    }
    public String addEdge(String identifier, int v1, int v2, int w){
-      Graph xx = map.get(identifier);
-      // System.out.println(xx);
-      // xx.printEdges();
-      xx.addEdge(v1,v2,w);
-      // xx.printEdges();
-      // System.out.println(map.get(identifier));
+      synchronized(map){
+         Graph xx = map.get(identifier);
+         xx.addEdge(v1,v2,w);
+      }
       return "Ok";
    }
    public int getMST(String identifier)
    {
-      Graph xx = map.get(identifier);
-      // xx.printEdges();
-      int aa = xx.getMST();
-      // xx.printEdges();
+      synchronized(map)
+      {
+         Graph xx = map.get(identifier);
+         int aa = xx.getMST();
+      }
       return aa;
+   }
+   public int checkConcurrency(String identifier)
+   {
+      synchronized(map)
+      {
+         Graph xx = map.get(identifier);
+         xx.concurrencyCheck();
+      }
+      return -1;
    }
 } 
