@@ -7,12 +7,12 @@ public class Client {
    public static void main(String[] args) {  
       while(true){
          Scanner obj = new Scanner(System.in);
-         System.out.println("Input command");
+         // System.out.println("Input command");
          String command = obj.next();
 
          try {  
             // Getting the registry 
-            Registry registry = LocateRegistry.getRegistry(null); 
+            Registry registry = LocateRegistry.getRegistry(args[0],Integer.parseInt(args[1])); 
       
             // Looking up the registry for the remote object 
             Hello stub = (Hello) registry.lookup("Hello"); 
@@ -23,7 +23,7 @@ public class Client {
                String identifier = obj.next();
                int numNodes = obj.nextInt();
                String str = stub.addGraph(identifier,numNodes);
-               System.err.println(str);
+               // System.err.println(str);
             }
             else if(command.equals("add_edge"))
             {
@@ -32,7 +32,7 @@ public class Client {
                int v2 = obj.nextInt();
                int w = obj.nextInt();
                String str = stub.addEdge(identifier,v1,v2,w);
-               System.err.println(str);
+               // System.err.println(str);
             }
             else if(command.equals("get_mst"))
             {
@@ -42,7 +42,7 @@ public class Client {
             }
 
             // System.err.println(str);
-            System.out.println("Remote method invoked"); 
+            // System.out.println("Remote method invoked"); 
          } catch (Exception e) {
             System.err.println("Client exception: " + e.toString()); 
             e.printStackTrace(); 
