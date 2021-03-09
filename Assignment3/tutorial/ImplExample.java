@@ -1,7 +1,5 @@
 import java.util.*;
-// Implementing the remote interface 
 
-// implements Comparable<Edge>
 class Edge {
    public int weight,vertex1,vertex2;
    Edge(int v1,int v2,int wt){
@@ -9,12 +7,6 @@ class Edge {
       vertex2 = v2;
       weight = wt;
    }
-   // @Override
-   // public boolean compareTo(Edge e) {
-   //    // usually toString should not be used,
-   //    // instead one of the attributes or more in a comparator chain
-   //    return weight<e.weight;
-   // }
 }
 
 class Graph{
@@ -23,8 +15,6 @@ class Graph{
    ArrayList<Edge> edges;
    int[] parents;
    int[] weights;
-   // ArrayList<int> vertex1;
-   // ArrayList<int> vertex2;
 
    Graph(int n)
    {
@@ -62,7 +52,7 @@ class Graph{
    }
 
    public void printEdges(){
-      edges.forEach(a->{ //Here, we are using lambda expression  
+      edges.forEach(a->{ 
          System.out.println(a.vertex1+" "+a.vertex2+" "+a.weight);  
       });  
       System.out.println("OKKK");
@@ -90,7 +80,7 @@ class Graph{
       }
       int ans = 0;
       for(Edge a:edges)
-      {  //Here, we are using lambda expression  
+      {  
          int wt = a.weight;
          int v1 = a.vertex1;
          int v2 = a.vertex2;
@@ -123,10 +113,11 @@ public class ImplExample implements Hello {
    }
    public int getMST(String identifier)
    {
+      int aa = -1;
       synchronized(map)
       {
          Graph xx = map.get(identifier);
-         int aa = xx.getMST();
+         aa = xx.getMST();
       }
       return aa;
    }

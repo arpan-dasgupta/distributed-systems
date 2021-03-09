@@ -7,17 +7,12 @@ public class Client {
    public static void main(String[] args) {  
       Scanner obj = new Scanner(System.in);
       while(true){
-         // System.out.println("Input command");
          String command = obj.next();
 
          try {  
-            // Getting the registry 
             Registry registry = LocateRegistry.getRegistry(args[0],Integer.parseInt(args[1])); 
-      
-            // Looking up the registry for the remote object 
             Hello stub = (Hello) registry.lookup("Hello"); 
       
-            // Calling the remote method using the obtained object according to the correct 
             if(command.equals("add_graph"))
             {
                String identifier = obj.next();
@@ -32,7 +27,6 @@ public class Client {
                int v2 = obj.nextInt();
                int w = obj.nextInt();
                String str = stub.addEdge(identifier,v1,v2,w);
-               // System.err.println(str);
             }
             else if(command.equals("get_mst"))
             {
