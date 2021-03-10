@@ -39,6 +39,9 @@ public class Client {
                String identifier = obj.next();
                int val = stub.checkConcurrency(identifier);
             }
+            else{
+               throw new Exception("Wrong command");
+            }
 
             // System.err.println(str);
             // System.out.println("Remote method invoked"); 
